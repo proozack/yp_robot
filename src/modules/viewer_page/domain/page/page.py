@@ -8,12 +8,7 @@ class EntryPoint:
     url: str
 
 
-@dataclass
-class MainCategory:
-    url: str
-
-
-class Shop(AggregateRoot): #to nie będzie shop tylko encja entry point 
+class Shop(AggregateRoot):  # to nie będzie shop tylko encja entry point
 
     def __init__(self, name):
         super().__init__()

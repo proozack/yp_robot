@@ -14,3 +14,15 @@ def test_add_entry_point_increament_version_number():
 
     # then
     assert shop.version_number == 1
+
+
+def test_add_main_category_to_entry_point():
+    # given
+    shop = Shop('intymna')
+    ep = EntryPoint('https://www.intymna.pl/c1381,1167,0,0,,body')
+
+    # when
+    shop.add_entry_point(ep)
+
+    # then
+    assert shop.name == 'intymna'
