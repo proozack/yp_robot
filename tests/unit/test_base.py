@@ -1,6 +1,6 @@
-import pytest
+import pytest # noqa F401
 # from viewer_page.domain.page import (EntryPoint, Shop)
-from src.viewer_page.domain.page import (EntryPoint, Shop)
+from src.modules.viewer_page.domain.page import (EntryPoint, Shop)
 
 
 def test_add_entry_point_increament_version_number():
