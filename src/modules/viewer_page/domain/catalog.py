@@ -1,9 +1,11 @@
 from ..domain.entry_point import EntryPoint
 from ..domain.product import Product
 from ..domain.parser import Parser
-from ..services_layer import messagebus
-from exceptions import VPScraperCatalogError
-import celery
+from ..service_layer import messagebus
+from src.modules.viewer_page.exceptions import VPScraperCatalogError
+# import celery -> nie używamy tutaj celry tylko emitujemy do messagebus
+# a heandlar powinnien mieć specianylny miejsce na przechytywanie tych eventów
+# i dopiero on poiwnnien clecać taski celery jeśli będzie to celery
 
 log = None  # ToDo Create logger
 
@@ -11,7 +13,7 @@ log = None  # ToDo Create logger
 class Catalogs():  # czy na pewno catalogs czy raczej powinno być catalog
     catalogs: [Product] = set()  # ?? czy prawidłowa nazwa obiektu ??
 
-    @celery.task
+    # @celery.task
     def process(self, entry_point: EntryPoint, parser: Parser) -> bool:
         # uruchamia paraser dla strony typu catalog
         # emituje event zapisz produkty dla obiektu Catalog

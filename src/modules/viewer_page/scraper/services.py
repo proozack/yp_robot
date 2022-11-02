@@ -1,7 +1,7 @@
-from ..domain.catalog import Catalog
+# from ..domain.catalog import Catalog
 from ..domain.entry_point import EntryPoint
 from ..domain.parser import Parser
-from ..services_layer import messagebus
+from ..service_layer import messagebus
 
 
 #  To nic innego jak services_layer
@@ -12,11 +12,16 @@ class ScraperServices():
     # entry point powinien dziedziczy po obiekcie bazowym ze zmienionym url strony docelowej
 
     def process_entry_point(self, entry_point):
-        catalog = Catalog()
+        # catalog = Catalog()
         parser = self._specify_parser(entry_point)
-        result = catalog.process.delay(entry_point, parser)  # czym będzie result?
-        command = 'save:process_entry_point'
-        messagebus.process(command, result)
+        # result = catalog.process.delay(entry_point, parser)  # czym będzie result?
+        # result = catalog.process(entry_point, parser)  # czym będzie result?
+        command = 'viewer_page:catalog_process'  # assync jest bez sensu, ponieważ wszystko jest assync
+        messagebus.process(command, (entry_point, parser))
+
+        # command = 'save:process_entry_point'
+        # messagebus.process(command, result)
+
         # to będzie task celery
         # zlecam przetworzenie pierwszej strony
         # coś w stylu catalog.process.delay(entry_point)
